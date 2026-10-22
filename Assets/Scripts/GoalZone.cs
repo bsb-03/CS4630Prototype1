@@ -6,15 +6,10 @@ public class GoalZone : MonoBehaviour
     {
         if (other.CompareTag("DeliveryObject"))
         {
-            Debug.Log("Successful Delivery!");
+            Debug.Log("Delivery Successful!");
 
-            DeliveryObject delivery =
-                 other.GetComponent<DeliveryObject>();
-
-            if (delivery != null)
-            {
-                delivery.ResetDelivery();
-            }
+            GameManager.Instance.AddPoint();
+            Destroy(other.gameObject);
         }
     }
 }

@@ -8,9 +8,9 @@ public class HazardZone : MonoBehaviour
         {
             Debug.Log("Delivery Failed!");
 
-            DeliveryObject delivery =
-                 other.GetComponent<DeliveryObject>();
+            GameManager.Instance.LoseAttempt();
 
+            DeliveryObject delivery = other.GetComponent<DeliveryObject>();
             if (delivery != null)
             {
                 delivery.ResetDelivery();

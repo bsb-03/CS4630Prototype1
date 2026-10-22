@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveInput;
 
+    private bool hasJumpInput = false;
+
     void Start()
 
     {
@@ -35,22 +37,34 @@ public class PlayerController : MonoBehaviour
 
         if (Keyboard.current.wKey.isPressed)
             vertical = 1f;
+        if (Keyboard.current.spaceKey.isPressed)
+            hasJumpInput = true;
 
         moveInput = new Vector2(horizontal, vertical);
     }
 
-
-
-    void FixedUpdate()
+    void HandlePlayerMove()
     {
-        Vector3 movement =
-            new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector3 movement = new Vector3(moveInput.x, 0f, moveInput.y);
 
         movement = movement.normalized;
 
-        rb.MovePosition(
-            rb.position + movement * moveSpeed * Time.fixedDeltaTime
-        );
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
 
+    void HandleJump()
+    {
+        rb.AddForce(new Vector3(0f,0.5f,0f), ForceMode.Impulse);
+        hasJumpInput = false;
+    }
+
+    void FixedUpdate()
+    {
+        HandlePlayerMove();
+
+        if(hasJumpInput)
+        {
+            HandleJump();
+        }  
     }
 }
