@@ -16,5 +16,15 @@ public class HazardZone : MonoBehaviour
                 delivery.ResetDelivery();
             }
         }
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.LoseAttempt();
+
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.ResetPlayer();
+            }
+        }   
     }
 }
